@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var fromUnitsLabel: UILabel!
     @IBOutlet weak var resultsLabel: UILabel!
     @IBOutlet weak var formulaPicker: UIPickerView!
+    @IBOutlet weak var decimalSegment: UISegmentedControl!
     
     var formulaArray = ["miles to kilometers",
                         "kilometers to miles",
@@ -30,13 +31,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         formulaPicker.delegate = self
         formulaPicker.dataSource = self
-        // Do any additional setup after loading the view, typically from a nib.
+        conversionString = formulaArray[formulaPicker.selectedRow(inComponent: 0)]
+        
     }
 
     func calculateConversion() {
         
-        var outputValue = 0.0
-        if let inputValue = Double(userInput.text!) {
+        guard let inputValue = Double(userInput.text!) else {
+            print("show alert here to say value entered was not a number")
+            return
+        }
+            var outputValue = 0.0
             switch conversionString {
             case "miles to kilometers":
                 outputValue = inputValue / 0.62137
@@ -53,14 +58,18 @@ class ViewController: UIViewController {
             default:
                 print("show alert - for some reason we didn't have a conversion string")
             }
-            resultsLabel.text = "\(inputValue) \(fromUnits) = \(outputValue) \(toUnits)"
-        } else {
-            print("show alert here to say value entered was not a number")
-        }
+        let formatString = (decimalSegment.selectedSegmentIndex < decimalSegment.numberOfSegments-1 ? "%.\(decimalSegment.selectedSegmentIndex+1)f" : "%f")
+        let outputString = String(format: formatString, outputValue)
+        resultsLabel.text = "\(inputValue) \(fromUnits) = \(outputString) \(toUnits)"
 
     }
     
+    @IBAction func decimalSelected(_ sender: Any) {
+        calculateConversion()
+    }
+    
     @IBAction func converButtonPressed(_ sender: UIButton) {
+        calculateConversion()
     }
     
 }

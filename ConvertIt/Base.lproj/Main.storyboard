@@ -141,7 +141,7 @@
                     </view>
                     <connections>
                         <outlet property="formulaPicker" destination="C2n-N6-WPY" id="3T9-gw-YLR"/>
-                        <outlet property="fromUnits" destination="vBY-s9-ueb" id="wiJ-zX-Tg4"/>
+                        <outlet property="fromUnitsLabel" destination="vBY-s9-ueb" id="wiJ-zX-Tg4"/>
                         <outlet property="resultsLabel" destination="T7F-vS-yXx" id="bfE-O6-tr0"/>
                         <outlet property="userInput" destination="71U-vM-CWV" id="VF1-na-l5v"/>
                     </connections>
